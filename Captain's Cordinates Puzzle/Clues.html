@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escape Room Clues</title>
+  <style>
+    body {
+      background-color: #0d1b2a;
+      color: #e0f7fa;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .clue {
+      background-color: #1b263b;
+      border: 1px solid #64ffda;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .clue h2 {
+      color: #72f2eb;
+      margin-top: 0;
+    }
+
+    .clue p {
+      margin: 0 0 10px 0;
+    }
+
+    .clue pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 1rem;
+    }
+  </style>
+  <script>
+    function handleTerminalCommand(event) {
+      if (event.key === "Enter") {
+        const input = document.getElementById("terminalInput").value.trim();
+        const output = document.getElementById("terminalOutput");
+        if (input === "ship_sys --access nav_logs -d 2310.6") {
+          output.textContent = "> " + input + "\nAccessing log...\nCoordinate Lock: 41°N, 70°W\nTrace complete.";
+        } else {
+          output.textContent = "> " + input + "\nERROR: Invalid request. Trace not found.";
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="clue">
+    <h2>Clue 1: Captain’s Log</h2>
+    <button onclick="document.getElementById('popup1').style.display='block'">View Log Entry</button>
+    <div id="popup1" class="popup" style="display:none;">
+      <pre style="color: #ffb347;">
+=== Captain’s Log: Entry 2310.6 ===
+The sea was glass, eerily calm before we entered the storm.
+We had been heading 70 degrees due west and the gale pushed us one degree north.
+Last known latitude signal showed 42.00321°N.
+      </pre>
+      <button onclick="document.getElementById('popup1').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <div class="clue">
+    <h2>Clue 2: System Access Required</h2>
+    <p>We've been entering the standard command, but it's not working. Maybe there's something we're missing in Clue #1?</p>
+    <p><code>ship_sys --access nav_logs -d 2310</code></p>
+    <button onclick="document.getElementById('terminalPopup').style.display='block'">Launch Terminal</button>
+    <div id="terminalPopup" class="popup" style="display:none;">
+      <pre id="terminalOutput" style="background-color: black; color: #33ff33; padding: 10px; min-height: 150px;">
+> ship_sys --access nav_logs -d 
+      </pre>
+      <input id="terminalInput" type="text" style="width: 100%; font-family: monospace;" placeholder="Enter command..." onkeydown="handleTerminalCommand(event)">
+      <button onclick="document.getElementById('terminalPopup').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <div class="clue">
+    <h2>Clue 3: Distress Transmission</h2>
+    <button onclick="document.getElementById('popup3').style.display='block'">Open Transmission Log</button>
+    <div id="popup3" class="popup" style="display:none;">
+      <pre style="color: #ffdd57;">
+.... ..- .-. .-. -.-- / - --- / -.-. --- --- .-. -.. .. -. .- - . / ....- ...-- / -.. . --. .-. . . ... / .- - / -.... ----. / -.. . --. .-. . . ...
+      </pre>
+      <button onclick="document.getElementById('popup3').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <div class="clue">
+    <h2>Clue 4: Captain’s Personal Notations</h2>
+    <button onclick="document.getElementById('popup4').style.display='block'">Open Notations</button>
+    <div id="popup4" class="popup" style="display:none;">
+      <pre style="color: #ff6b6b;">
+=== Ship's Navigation Log ===
+[CONFIDENTIAL – BRIDGE CREW ONLY]
+
+Entry 1 – 0600 hours
+Departed known position: 41°N, 73°W
+Course set due north, one degree per hour.
+
+Entry 2 – 0700 hours
+Current position: 42°N, 72°W
+
+Entry 3 – 0800 hours
+Maintained bearing. One degree change due north, one degree due west.
+
+Entry 4 – 0900 hours
+Current position: 43°N, 71°W
+
+Entry 5 – 1000 hours
+Cloud cover thick. Instruments failing. No new position logged.
+
+Entry 6 – 1100 hours
+Final entry. We estimate our position at one degree north, one degree west from last known location.
+If calculations are correct, landfall imminent.
+      </pre>
+      <button onclick="document.getElementById('popup4').style.display='none'">Close</button>
+    </div>
+  </div>
+  <div class="clue">
+    <h2>Clue 5: Signal Flags</h2>
+    <button onclick="document.getElementById('popup5').style.display='block'">View Flag Sequence</button>
+    <div id="popup5" class="popup" style="display:none;">
+      <pre style="color: #87ceeb;">
+A series of colorful signal flags hangs above the communications console. The thread is fraying, but the sequence is still intact. You observe the following flags:
+
+Flag 1: Red flag with white cross  
+Flag 2: Blue flag with white circle  
+Flag 3: Blue and white checkerboard flag  
+Flag 4: Red-yellow horizontal halves  
+Flag 5: Blue flag with white circle  
+Flag 6: Red, white, and blue square flag  
+
+(Use the <a href="signalflags.jpg" target="_blank" style="color:#72f2eb;">International Maritime Signal Flag chart</a> to decode.)
+      </pre>
+      <button onclick="document.getElementById('popup5').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <div class="clue">
+    <h2>Clue 6: Rhyme of the Forgotten Voyage</h2>
+    <p>A tattered page from an old sea journal was wedged between the helm and the bulkhead. It appears to be a poem – perhaps nonsense, or perhaps... a clue.</p>
+    <button onclick="document.getElementById('popup6').style.display='block'">Read the Poem</button>
+    <div id="popup6" class="popup" style="display:none;">
+      <pre style="color: #d0c6ff; font-style: italic;">
+From mast to moon, the winds did scream,
+A lonely star marked out our dream.
+The sky was clear at latitude four,
+And one pale gull above did soar.
+
+The water dark, the compass spun,
+We drifted west as day was done.
+The helmsman cried, “By heavens bright,
+Seventy-one we sail this night!”
+
+The old man’s map was stained and torn,
+But in his notes a course was sworn:
+“A single point, a northern line,
+One less than forty and the divine.”
+
+A whisper passed, a sailor’s breath,
+A bearing found in face of death.
+They set their sights and prayed for sun,
+And turned their prow to forty-one.
+      </pre>
+      <button onclick="document.getElementById('popup6').style.display='none'">Close</button>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 40px;">
+    <button onclick="window.location.href='landing page.html'" style="background-color: #64ffda; color: #0d1b2a; border: none; padding: 10px 20px; font-family: 'Courier New', Courier, monospace; font-size: 1rem; cursor: pointer; border-radius: 4px;">
+      ← Back to Navigation
+    </button>
+  </div>
+</body>
+</html>
