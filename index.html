@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Captain's Coordinates</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(180deg, #000814, #001f3f);
+      background-attachment: fixed;
+      color: #00ffcc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .banner {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-bottom: 3px solid #00ffcc;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 2.5em;
+      margin: 20px 0 10px;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .instructions {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-left: 4px solid #00ffcc;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-bottom: 20px;
+      color: #ccf9ff;
+      text-align: center;
+    }
+
+    .marked {
+      background: #00ffff;
+      color: #001f3f;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    .wrong {
+      background: #ff4d4d !important;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    select {
+      background-color: #003344;
+      color: #00ffcc;
+      border: 1px solid #00ffcc;
+      border-radius: 4px;
+      padding: 4px;
+      margin: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #00ffcc;
+      border: none;
+      color: #001f3f;
+      padding: 8px 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin: 5px;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #00e6b8;
+    }
+
+    .success {
+      color: #00ff00;
+      font-size: 20px;
+      margin-top: 20px;
+      display: none;
+      text-shadow: 0 0 4px #00ff00;
+    }
+
+    .codeword {
+      display: flex;
+      gap: 10px;
+      margin: 20px;
+      font-size: 2em;
+      justify-content: center;
+    }
+    .letter {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: #003344;
+      border: 2px solid #00ffcc;
+      text-align: center;
+      line-height: 40px;
+      color: #00ffcc;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <img src="bridge.jpg" alt="View from the Captain's Bridge at Sunrise" class="banner">
+
+  <h1>The Captain's Coordinates</h1>
+
+  <div class="instructions">
+    <p>Welcome to the bridge, officer. Your mission is to decode the Captain’s final message using the clues scattered throughout the ship’s systems.</p>
+    <p>Each clue will help you unlock a coordinate. When all six are plotted, they will reveal a word.</p>
+    <a href="clues.html"><button>Access Clue Database</button></a>
+  </div>
+
+  <div class="codeword" id="codewordDisplay">
+    <span class="letter" id="letter0">⬜</span>
+    <span class="letter" id="letter1">⬜</span>
+    <span class="letter" id="letter2">⬜</span>
+    <span class="letter" id="letter3">⬜</span>
+    <span class="letter" id="letter4">⬜</span>
+    <span class="letter" id="letter5">⬜</span>
+  </div>
+
+  <div>
+    <label>Latitude:
+      <select id="latitude">
+        <option value="">--</option>
+        <option value="30">30°N</option>
+        <option value="31">31°N</option>
+        <option value="32">32°N</option>
+        <option value="33">33°N</option>
+        <option value="34">34°N</option>
+        <option value="35">35°N</option>
+        <option value="36">36°N</option>
+        <option value="37">37°N</option>
+        <option value="38">38°N</option>
+        <option value="39">39°N</option>
+        <option value="40">40°N</option>
+        <option value="41">41°N</option>
+        <option value="42">42°N</option>
+        <option value="43">43°N</option>
+        <option value="44">44°N</option>
+        <option value="45">45°N</option>
+        <option value="46">46°N</option>
+        <option value="47">47°N</option>
+        <option value="48">48°N</option>
+        <option value="49">49°N</option>
+        <option value="50">50°N</option>
+      </select>
+    </label>
+
+    <label>Longitude:
+      <select id="longitude">
+        <option value="">--</option>
+        <option value="60">60°W</option>
+        <option value="61">61°W</option>
+        <option value="62">62°W</option>
+        <option value="63">63°W</option>
+        <option value="64">64°W</option>
+        <option value="65">65°W</option>
+        <option value="66">66°W</option>
+        <option value="67">67°W</option>
+        <option value="68">68°W</option>
+        <option value="69">69°W</option>
+        <option value="70">70°W</option>
+        <option value="71">71°W</option>
+        <option value="72">72°W</option>
+        <option value="73">73°W</option>
+        <option value="74">74°W</option>
+        <option value="75">75°W</option>
+        <option value="76">76°W</option>
+        <option value="77">77°W</option>
+        <option value="78">78°W</option>
+        <option value="79">79°W</option>
+        <option value="80">80°W</option>
+      </select>
+    </label>
+
+    <button onclick="markCoordinate()">Plot Coordinate</button>
+  </div>
+
+  <div class="success" id="successMessage">
+    ✅ Coordinates Confirmed: LIGHTHOUSE
+  </div>
+
+  <script>
+    const latitudes = Array.from({length: 21}, (_, i) => 30 + i);
+    const longitudes = Array.from({length: 21}, (_, i) => 60 + i);
+    const markedPoints = [];
+    const solution = ['42-71', '41-70', '43-69', '44-70', '42-72', '41-71'];
+
+    function makeGrid() {
+      // Removed grid rendering logic as per instructions
+    }
+
+    function markCoordinate() {
+      const lat = document.getElementById('latitude').value;
+      const lon = document.getElementById('longitude').value;
+      const coord = `${lat}-${lon}`;
+
+      if (markedPoints.includes(coord)) return;
+
+      if (solution.includes(coord) && coord === solution[markedPoints.length]) {
+        document.getElementById(`letter${markedPoints.length}`).textContent = '✅';
+        markedPoints.push(coord);
+      }
+
+      if (markedPoints.length === solution.length) {
+        document.getElementById('successMessage').style.display = 'block';
+      }
+    }
+
+    // makeGrid(); // Removed function call as per instructions
+  </script>
+</body>
+</html>
