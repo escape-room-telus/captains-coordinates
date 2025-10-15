@@ -207,16 +207,27 @@
       const lat = document.getElementById('latitude').value;
       const lon = document.getElementById('longitude').value;
       const coord = `${lat}-${lon}`;
+      const currentIndex = markedPoints.length;
+      const currentBox = document.getElementById(`letter${currentIndex}`);
 
-      if (markedPoints.includes(coord)) return;
+      if (!lat || !lon) return;
 
-      if (solution.includes(coord) && coord === solution[markedPoints.length]) {
-        document.getElementById(`letter${markedPoints.length}`).textContent = '✅';
-        markedPoints.push(coord);
+      if (markedPoints.includes(coord)) {
+        currentBox.classList.add('wrong');
+        setTimeout(() => currentBox.classList.remove('wrong'), 400);
+        return;
       }
 
-      if (markedPoints.length === solution.length) {
-        document.getElementById('successMessage').style.display = 'block';
+      if (solution.includes(coord) && coord === solution[currentIndex]) {
+        currentBox.textContent = '✅';
+        markedPoints.push(coord);
+
+        if (markedPoints.length === solution.length) {
+          document.getElementById('successMessage').style.display = 'block';
+        }
+      } else {
+        currentBox.classList.add('wrong');
+        setTimeout(() => currentBox.classList.remove('wrong'), 400);
       }
     }
 
